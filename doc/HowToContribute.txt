@@ -16,7 +16,7 @@ HOW TO CONTRIBUTE
 	-> Check: Import all existing projects
 	-> Finish!
 6) Make changes!**
-7) Push to repo
+7) Push to your repo
 	- Right click repo in Git Repositories window
 	- Commit
 		-> Write commit message describing what you did
