@@ -1,0 +1,44 @@
+HOW TO CONTRIBUTE
+-----------------
+
+1) Create account on github.com
+2) Fork repo -> https://github.com/Johannes-M/balancing/fork
+3) Install Eclipse
+4) Install eGit (Help->Eclipse Marketplace)
+5) Clone repo
+	- Open Window->Show View->Other...->Git->Git Repositories
+	- Select "Clone a Git repository and add the clone to this view"
+	- Fill in:
+		URI: https://github.com/YOURNICK/balancing.git
+		Authentication: User: YOURNICK Password: YOURPASS 
+			Check: Store in Secure Store
+	-> Next...
+	-> Check: Import all existing projects
+	-> Finish!
+6) Make changes!**
+7) Push to repo
+	- Right click repo in Git Repositories window
+	- Commit
+		-> Write commit message describing what you did
+		-> Select files to sync with repo
+		-> Commit and Push
+
+** Important: always pull newest version from main repo before applying changes!
+
+Therefore, do this once...
+	- Open "Git Repositories" window
+	- Open drop-down for your repo
+	- Right-click "Remotes" : Create Repo
+		- Remote name: upstream
+		- Check: configure fetch
+		- URI: https://github.com/Johannes-M/balancing.git
+		-> Save
+... and this, every time you want to check for updates:
+	- Open Git Repositories window
+	- Open drop-down for your repo
+	- Open drop-down Remotes
+	- Right-click: Fetch
+	- Right click repo in Git Repositories window
+	- Rebase->Remote Tracking->upstream
+	
+	

@@ -1,0 +1,8 @@
+ToDo-List
+---------
+1) migrate matches table from ODS to online database
+2) migrate l-ratio calculation from ODS to Java
+3) create webinterface for...
+	... being able to see the current stats
+	... being able to submit match results
+	... being able to balance teams
