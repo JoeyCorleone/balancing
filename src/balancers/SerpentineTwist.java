@@ -23,13 +23,11 @@ public class SerpentineTwist implements IBalancer {
 	
 	@Override
 	public void balance() {
-		if (pCon.size() % 2 == 1) {
-			throw new IllegalArgumentException("ERROR: Serpentine Twist requires an even amount of participants!");
-		} else {
-			serpentine();
-			twist(-1);
-			updateTeams();
-		}
+		if (pCon.size() % 2 == 1)
+			pCon.addPlayer(new Player("Dummy: odd amount of players", 0.0));
+		serpentine();
+		twist(-1);
+		updateTeams();
 	}
 	
 	private void serpentine() {
@@ -116,17 +114,20 @@ public class SerpentineTwist implements IBalancer {
 		System.out.println("\nINPUT:");
 		System.out.println("------");
 		for (Player p : pCon)
-			System.out.println(p);
+			if (!p.getName().equals("Dummy: odd amount of players"))
+					System.out.println(p);
 		System.out.println("\nRESULT:");
 		System.out.println("-------");
 		System.out.println("\nTEAM 1");
 		System.out.println("------");
 		for (Player p : optTeam1)
-			System.out.println(p);
+			if (!p.getName().equals("Dummy: odd amount of players"))
+				System.out.println(p);
 		System.out.println("\nTEAM 2");
 		System.out.println("-------");
 		for (Player p : optTeam2)
-			System.out.println(p);
+			if (!p.getName().equals("Dummy: odd amount of players"))
+				System.out.println(p);
 		System.out.println("\nVALUES");
 		System.out.println("-------");
 		System.out.printf("Total Score Team 1: %.2f", optTotalScoreTeam1);
