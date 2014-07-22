@@ -1,0 +1,7 @@
+Sample Stats;;;;;;;;;;;
+;;;;;;;;;;;
+Nick;Wins;Losses;Ratio;Number of Matches;Logistic curve;L-Ratio;L-Ratio full;Participating?;;;Parameters
+Participant 1;7;5;1,4;12;0,9168273035;1.3;1.283558224908510;x;;L curve bending;0,2
+Participant 4;5;4;1,3;9;0,8581489351;1.1;1.072686168874390;x;;Zero-losses-case NoM;5
+Participant 3;4;5;0,8;9;0,8581489351;0.7;0.686519148079610;x;;ZLC leverage;4
+Participant 2;3;5;0,6;8;0,8320183851;0.5;0.499211031080355;x;;ZWC leverage;0,5
