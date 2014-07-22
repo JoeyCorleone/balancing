@@ -1,26 +1,26 @@
 package balancers;
+
 import java.util.ArrayList;
 
 import core.Player;
 import core.PlayerContainer;
 import core.Team;
 
-
 public class SerpentineTwist implements IBalancer {
 
 	private PlayerContainer pCon = PlayerContainer.instance();
-	
+
 	private ArrayList<Player> team1 = new ArrayList<>();
 	private ArrayList<Player> team2 = new ArrayList<>();
-	
+
 	private ArrayList<Player> optTeam1;
 	private ArrayList<Player> optTeam2;
-	
+
 	private double optTotalScoreTeam1;
 	private double optTotalScoreTeam2;
-	
+
 	private double optTotalScoreDiff = Double.POSITIVE_INFINITY;
-	
+
 	@Override
 	public void balance() {
 		if (pCon.size() % 2 == 1)
@@ -29,21 +29,20 @@ public class SerpentineTwist implements IBalancer {
 		twist(-1);
 		updateTeams();
 	}
-	
+
 	private void serpentine() {
 		for (int i = 0; i < pCon.size(); i++) {
 			Player pLowest = findPlayerWithLowestRatio();
 			if (i % 2 == 1) {
 				pLowest.setTeam(Team.ONE);
 				team1.add(pLowest);
-			}
-			else {
+			} else {
 				pLowest.setTeam(Team.TWO);
 				team2.add(pLowest);
 			}
 		}
 	}
-	
+
 	private void twist(int level) {
 		if (level < team1.size() - 1) {
 			twist(++level);
@@ -53,7 +52,7 @@ public class SerpentineTwist implements IBalancer {
 			updateOptDiff();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void updateOptDiff() {
 		double totalScoreTeam1 = calcTotalScore(team1);
@@ -67,7 +66,7 @@ public class SerpentineTwist implements IBalancer {
 			optTeam2 = (ArrayList<Player>) team2.clone();
 		}
 	}
-	
+
 	private Player findPlayerWithLowestRatio() {
 		Player pLowest = new Player("Dummy", Double.POSITIVE_INFINITY);
 		for (int i = 0; i < pCon.size(); i++) {
@@ -79,7 +78,7 @@ public class SerpentineTwist implements IBalancer {
 		}
 		return pLowest;
 	}
-	
+
 	private void switchPlayers(int level) {
 		team1.add(level, team2.get(level));
 		Player p = team1.remove(level + 1);
@@ -87,14 +86,14 @@ public class SerpentineTwist implements IBalancer {
 		team2.add(level, p);
 		team2.remove(level + 1).setTeam(Team.ONE);
 	}
-	
+
 	private double calcTotalScore(ArrayList<Player> team) {
 		double totalScore = 0;
 		for (Player p : team)
 			totalScore += p.getRatio();
 		return totalScore;
 	}
-	
+
 	private void updateTeams() {
 		for (Player p : pCon) {
 			for (Player q : optTeam1)
@@ -106,6 +105,23 @@ public class SerpentineTwist implements IBalancer {
 		}
 	}
 
+	private BalancingQuality judgeBalancingQuality() {
+		if (optTotalScoreDiff < 0)
+			return BalancingQuality.FAILED;
+		else if (optTotalScoreDiff < 0.1)
+			return BalancingQuality.PERFECT;
+		else if (optTotalScoreDiff < 0.25)
+			return BalancingQuality.VERY_GOOD;
+		else if (optTotalScoreDiff < 0.5)
+			return BalancingQuality.GOOD;
+		else if (optTotalScoreDiff < 0.75)
+			return BalancingQuality.OK;
+		else if (optTotalScoreDiff < 1)
+			return BalancingQuality.BAD;
+		else
+			return BalancingQuality.VERY_BAD;
+	}
+
 	@Override
 	public void printResult() {
 		System.out.println("----------------------");
@@ -115,7 +131,7 @@ public class SerpentineTwist implements IBalancer {
 		System.out.println("------");
 		for (Player p : pCon)
 			if (!p.getName().equals("Dummy: odd amount of players"))
-					System.out.println(p);
+				System.out.println(p);
 		System.out.println("\nRESULT:");
 		System.out.println("-------");
 		System.out.println("\nTEAM 1");
@@ -132,7 +148,8 @@ public class SerpentineTwist implements IBalancer {
 		System.out.println("-------");
 		System.out.printf("Total Score Team 1: %.2f", optTotalScoreTeam1);
 		System.out.printf("\nTotal Score Team 2: %.2f", optTotalScoreTeam2);
-		System.out.printf("\nDifference: %.2f", optTotalScoreDiff);
+		System.out.printf("\nDifference: %.2f [Quality: %s]",
+				optTotalScoreDiff, judgeBalancingQuality());
 	}
-	
+
 }
