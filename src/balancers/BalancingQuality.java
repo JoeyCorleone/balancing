@@ -1,5 +1,5 @@
 package balancers;
 
 public enum BalancingQuality {
-	PERFECT, VERY_GOOD, GOOD, OK, BAD, VERY_BAD, FAILED
+	PERFECT, VERY_GOOD, GOOD, MEDIOCRE, BAD, VERY_BAD, FAILED
 }

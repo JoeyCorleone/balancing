@@ -115,7 +115,7 @@ public class SerpentineTwist implements IBalancer {
 		else if (optTotalScoreDiff < 0.5)
 			return BalancingQuality.GOOD;
 		else if (optTotalScoreDiff < 0.75)
-			return BalancingQuality.OK;
+			return BalancingQuality.MEDIOCRE;
 		else if (optTotalScoreDiff < 1)
 			return BalancingQuality.BAD;
 		else
